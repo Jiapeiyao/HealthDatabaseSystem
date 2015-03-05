@@ -23,9 +23,9 @@ public class ControlPanel extends JPanel {
 	private final View view;
 	private final Database Database;
 	
-	private final JButton loadButton = new JButton("Load");
-	private final JButton runButton = new JButton("Run");
-	private final JButton stepButton = new JButton("Step");
+	private final JButton patientButton = new JButton("Patient");
+	private final JButton DoctorButton = new JButton("Doctor");
+	private final JButton AdminButton = new JButton("Administer");
 	
 	private final JTextArea InputText = new JTextArea(6,0);
 	private final JTextArea DataMemoryCell = new JTextArea(6,0);
@@ -42,33 +42,33 @@ public class ControlPanel extends JPanel {
 		this.Database = Database;
 		
 		setLayout( new GridLayout( 1, 3 ) );
-		add( loadButton );
-		add( runButton );
-		add( stepButton );
+		add( patientButton );
+		add( DoctorButton );
+		add( AdminButton );
 		
-		runButton.setEnabled(false);
-		stepButton.setEnabled(false);
+		//DoctorButton.setEnabled(false);
+		//AdminButton.setEnabled(false);
 		 
 		initialize();
 		//view.setImage( Database.getImage() );
 		}
 	
 	private void initialize(){
-		loadButton.addActionListener( new ActionListener() {
+		patientButton.addActionListener( new ActionListener() {
 		    //@Override
 			public void actionPerformed( ActionEvent actionEvent )
-			{ loadButtonActionPerformed( actionEvent ); }
+			{ patientButtonActionPerformed( actionEvent ); }
 		});
-		runButton.addActionListener( new ActionListener() {
+		DoctorButton.addActionListener( new ActionListener() {
 		    //@Override
 			public void actionPerformed( ActionEvent actionEvent )
-			{ runButtonActionPerformed( actionEvent ); }
+			{ DoctorButtonActionPerformed( actionEvent ); }
 		});
 		
-		stepButton.addActionListener( new ActionListener() {
+		AdminButton.addActionListener( new ActionListener() {
 			 //@Override
 			public void actionPerformed( ActionEvent actionEvent )
-			{ stepButtonActionPerformed( actionEvent ); }
+			{ AdminButtonActionPerformed( actionEvent ); }
 		});
 	}
 	
@@ -76,7 +76,7 @@ public class ControlPanel extends JPanel {
      * Implementation of load Button
      * @param actionEvent unused
      */
-	private void loadButtonActionPerformed( ActionEvent actionEvent ) {
+	private void patientButtonActionPerformed( ActionEvent actionEvent ) {
 
 	}
 	
@@ -84,7 +84,7 @@ public class ControlPanel extends JPanel {
      * Implementation of run Button
      * @param actionEvent unused
      */
-	private void runButtonActionPerformed( ActionEvent actionEvent ) {
+	private void DoctorButtonActionPerformed( ActionEvent actionEvent ) {
 
 	}
 	
@@ -92,7 +92,7 @@ public class ControlPanel extends JPanel {
      * Implementation of step Button
      * @param actionEvent unused
      */
-	private void stepButtonActionPerformed( ActionEvent actionEvent ) {
+	private void AdminButtonActionPerformed( ActionEvent actionEvent ) {
 
 	}
 	
