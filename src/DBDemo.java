@@ -141,11 +141,12 @@ public class DBDemo {
 		}
 	}
 	
+	
 	/**
 	 * Connect to the DB and do some stuff
 	 */
-	public static void main(String[] args) {
-		DBDemo app = new DBDemo();
-		app.run();
-	}
+//	public static void main(String[] args) {
+//		DBDemo app = new DBDemo();
+//		app.run();
+//	}
 }

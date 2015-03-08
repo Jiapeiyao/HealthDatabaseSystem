@@ -21,7 +21,7 @@ import javax.swing.border.Border;
 
 public class ControlPanel extends JPanel {
 	private final View view;
-	private final Database Database;
+	//private final Database Database;
 	
 	private final JButton patientButton = new JButton("Patient");
 	private final JButton DoctorButton = new JButton("Doctor");
@@ -37,9 +37,9 @@ public class ControlPanel extends JPanel {
 	private final JScrollPane ScrollBuildInfo = new JScrollPane(BuildInfo);
 	private final JPanel TextPanel = new JPanel();
 	
-	ControlPanel( View view, Database Database ){
+	ControlPanel( View view ){
 		this.view = view;
-		this.Database = Database;
+		//this.Database = Database;
 		
 		setLayout( new GridLayout( 1, 3 ) );
 		add( patientButton );
@@ -48,7 +48,7 @@ public class ControlPanel extends JPanel {
 		
 		//DoctorButton.setEnabled(false);
 		//AdminButton.setEnabled(false);
-		 
+		
 		initialize();
 		//view.setImage( Database.getImage() );
 		}
