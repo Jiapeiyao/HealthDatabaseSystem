@@ -14,8 +14,8 @@ public class App extends JFrame {
 	private final Database database;
 	
 	App(){
-		database = new Database();
-		controlPanel = new ControlPanel( view, database );        
+		database = new Database("healthmessagesexchange2");
+		controlPanel = new ControlPanel( view );        
 		setTitle( "Health Message Exchange Database System" );
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		Dimension dimension = new Dimension( view.IMAGE_SIZE, view.IMAGE_SIZE + controlPanel.getHeight() );
