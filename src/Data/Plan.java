@@ -5,8 +5,11 @@ public class Plan {
 	public String PlanDate;
 	public String Activity;
 	public String PatientID; 
-	public Plan() {
-		// TODO Auto-generated constructor stub
+	public Plan(String PlanID, String PlanDate, String PatientID) {
+		this.PlanID = PlanID;
+		this.PlanDate = PlanDate;
+		this.Activity = Activity;
+		this.PatientID = PatientID;
 	}
 
 }

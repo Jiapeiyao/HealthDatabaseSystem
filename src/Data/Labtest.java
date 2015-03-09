@@ -5,8 +5,11 @@ public class Labtest {
 	public String LabTestType;
     public String ReferenceRangeHight;
     public String ReferenceRangeLow;
-	public Labtest() {
-		// TODO Auto-generated constructor stub
+	public Labtest(String LabTestResultID, String LabTestType, String ReferenceRangeHight, String ReferenceRangeLow) {
+		this.LabTestResultID = LabTestResultID;
+		this.LabTestType = LabTestType;
+		this.ReferenceRangeHight = ReferenceRangeHight;
+		this.ReferenceRangeLow = ReferenceRangeLow;
 	}
 
 }
