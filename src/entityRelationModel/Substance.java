@@ -1,4 +1,4 @@
-package Data;
+package entityRelationModel;
 
 public class Substance {
 	public String SubstanceID;

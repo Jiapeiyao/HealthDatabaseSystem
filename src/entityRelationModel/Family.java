@@ -1,4 +1,4 @@
-package Data;
+package entityRelationModel;
 
 public class Family {
 	public String RelativeID;
