@@ -10,7 +10,7 @@ public class Guardian {
 	public String State;
 	public String Zip;
 	
-	public Guardian() {
+	public Guardian(String GuardianNo, String GivenName, String FamilyName, String Phone, String Address, String City, String State, String Zip) {
 		 
 	}
 
