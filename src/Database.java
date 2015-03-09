@@ -36,7 +36,6 @@ public class Database {
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", this.userName);
 		connectionProps.put("password", this.password);
-
 		conn = DriverManager.getConnection("jdbc:mysql://"
 				+ this.serverName + ":" + this.portNumber + "/" + dbName,
 				connectionProps);
@@ -44,7 +43,7 @@ public class Database {
 		return conn;
 	}
 	
-	public ResultSet selectTable(String sqlComm) throws SQLException {
+	public ResultSet selectTable(String sqlComm)  throws SQLException {
 		ResultSet rs = null;
 		try{
 			Statement stmt = conn.createStatement();
@@ -56,7 +55,7 @@ public class Database {
 		return rs;
 	}
 
-	public void closeConnection(){
+	public void closeConnection()  throws SQLException {
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -65,19 +64,24 @@ public class Database {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Database db = new Database("healthmessagesexchange2");
 		ResultSet rs = null;
 		try {
-			rs = db.selectTable(db.conn, "SELECT * FROM messages");
+			rs = db.selectTable("SELECT * FROM messages");
 			while (rs.next()){
-				System.out.print(rs.getString(2)+" . ");
+				System.out.print(rs.getString(44)+" . ");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    db.closeConnection();
+	    try {
+			db.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

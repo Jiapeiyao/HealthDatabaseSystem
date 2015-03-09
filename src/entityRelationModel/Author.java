@@ -1,4 +1,4 @@
-package Data;
+package entityRelationModel;
 
 public class Author {
 	public String AuthorID;
