@@ -2,8 +2,8 @@ package Data;
 
 public class Substance {
 	public String SubstanceID;
-	public Substance() {
-		// TODO Auto-generated constructor stub
+	public Substance(String SubstanceID) {
+		this.SubstanceID = SubstanceID;
 	}
 
 }
