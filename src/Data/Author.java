@@ -6,8 +6,12 @@ public class Author {
     public String AuthorFirstName;
     public String AuthorLastName; 
 		
-	public Author() {
-		// TODO Auto-generated constructor stub
+	public Author(String AuthorID, String AuthorTitle, String AuthorFirstName, String AuthorLastName) {
+		this.AuthorID = AuthorID;
+		this.AuthorTitle = AuthorTitle;
+		this.AuthorFirstName = AuthorFirstName;
+		this.AuthorLastName = AuthorLastName;
+		
 	}
 
 }

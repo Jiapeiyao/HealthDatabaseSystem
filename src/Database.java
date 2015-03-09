@@ -33,7 +33,6 @@ public class Database {
 	 * @throws SQLException
 	 */
 	public Connection getConnection(String dbName) throws SQLException {
-		Connection conn = null;
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", this.userName);
 		connectionProps.put("password", this.password);
@@ -45,7 +44,7 @@ public class Database {
 		return conn;
 	}
 	
-	public ResultSet selectTable(Connection conn, String sqlComm) throws SQLException {
+	public ResultSet selectTable(String sqlComm) throws SQLException {
 		ResultSet rs = null;
 		try{
 			Statement stmt = conn.createStatement();
@@ -66,19 +65,19 @@ public class Database {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		Database db = new Database("healthmessagesexchange2");
-//		ResultSet rs = null;
-//		try {
-//			rs = db.selectTable(db.conn, "SELECT * FROM messages");
-//			while (rs.next()){
-//				System.out.print(rs.getString(5)+" ");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	    db.conn.closeConnection();
-//	}
+	public static void main(String[] args) {
+		Database db = new Database("healthmessagesexchange2");
+		ResultSet rs = null;
+		try {
+			rs = db.selectTable(db.conn, "SELECT * FROM messages");
+			while (rs.next()){
+				System.out.print(rs.getString(2)+" . ");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    db.closeConnection();
+	}
 
 }
