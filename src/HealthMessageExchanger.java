@@ -39,34 +39,6 @@ public class HealthMessageExchanger {
 	private Record record;
 	private Substances substances;
 	private Visit visit;
-	private final String allergiesFormat = "ALLERGIES(PatientID, SubstanceID, AllergyStatus, Reaction)";
-	private final String authorFormat = "AUTHOR(AuthorID, AuthorTitle, AuthorFirstName, AuthorLastName)";
-	private final String familyFormat = "FAMILY(RelativeID, Age, Diagnosis)";
-	private final String familyHistoryFormat = "FAMILYHISTORY(PatientID, RelativeID, Relation)";
-	private final String guardiansFormat = "GUARDIANS(GuardianNo, GivenName, FamilyName, Phone, Address, City, State, Zip)";
-	private final String insurancesFormat = "INSURANCES(PayerID, PayerName, Purpose, PolicyType, PolicyHolder)";
-	private final String labTestsFormat = "LABTESTS( LabTestResultID, LabTestType, ReferenceRangeHigh, ReferenceRangeLow)";
-	private final String patientRoleFormat = "PATIENTROLE(PatientID, GuardianNo, Relationship)";
-	private final String patientsFormat = "PATIENTS(PatientID, GivenName, FamilyName, Suffix, Gender, Birthtime, ProviderID, InsuranceID)";
-	private final String plansFormat = "PLANS(PlanID, PlanDate, Activity, PatientID)";
-	private final String recordFormat = "RECORD(PatientID, AuthorID, ParticipatingRole)";
-	private final String substancesFormat = "SUBSTANCES(Id, Substance)";
-	private final String visitFormat = "VISIT(LabTestPerformanceDate, TestResultValue, PatientVisitID, PatientID, LabTestResultID)";
-	//strings that helps ER Primary key constraint 
-	private final String allergiesPK = " ON DUPLICATE KEY UPDATE PatientID=PatientID, SubstanceID=SubstanceID;\n";
-	private final String authorPK = " ON DUPLICATE KEY UPDATE AuthorID=AuthorID;\n";
-	private final String familyPK = " ON DUPLICATE KEY UPDATE RelativeID=RelativeID;\n";
-	private final String familyHistoryPK = " ON DUPLICATE KEY UPDATE PatientID=PatientID, RelativeID=RelativeID;\n";
-	private final String guardiansPK = " ON DUPLICATE KEY UPDATE GuardianNo=GuardianNo;\n";
-	private final String insurancesPK = " ON DUPLICATE KEY UPDATE PayerID=PayerID;\n";
-	private final String labTestsPK = " ON DUPLICATE KEY UPDATE LabTestResultID=LabTestResultID;\n";
-	private final String patientRolePK = " ON DUPLICATE KEY UPDATE PatientID=PatientID, GuardianNo=GuardianNo;\n";
-	private final String patientsPK = " ON DUPLICATE KEY UPDATE PatientID=PatientID;\n";
-	private final String plansPK = " ON DUPLICATE KEY UPDATE PlanID=PlanID;\n";
-	private final String recordPK = " ON DUPLICATE KEY UPDATE  PatientID=PatientID, AuthorID=AuthorID;\n";
-	private final String substancesPK = " ON DUPLICATE KEY UPDATE Id=Id;\n";
-	private final String visitPK = " ON DUPLICATE KEY UPDATE PatientVisitID=PatientVisitID, PatientID=PatientID, LabTestResultID=LabTestResultID;\n";
-	
 	
 	/**
 	 * Constructor
@@ -175,16 +147,6 @@ public class HealthMessageExchanger {
 					System.out.print(rs.getString(i)+"\t");
 				System.out.print("\n");
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void dropTables(String Table_Name){
-		try {
-			String sqlComm = "DROP TABLE "+Table_Name;
-			Target_DB.executeInsert(sqlComm);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
