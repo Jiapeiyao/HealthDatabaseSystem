@@ -1,11 +1,6 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -17,20 +12,20 @@ public class LabTests {
 	public String LabTestType;
     public String ReferenceRangeHigh;
     public String ReferenceRangeLow;
-    public String insertSQL;
+    public ArrayList<String> insertSQL;
     private final String labTestsFormat = "LABTESTS( LabTestResultID, LabTestType, ReferenceRangeHigh, ReferenceRangeLow)";
     private final String labTestsPK = " ON DUPLICATE KEY UPDATE LabTestResultID=LabTestResultID;\n";
 	
     public LabTests(){
-		insertSQL="";
+    	insertSQL=new ArrayList<String>();
     }
     
     public void addLabtests(String LabTestResultID, String LabTestType, String ReferenceRangeHigh, String ReferenceRangeLow) {
-		this.LabTestResultID = "'"+LabTestResultID+"'";
-		this.LabTestType = "'"+LabTestType+"'";
-		this.ReferenceRangeHigh = "'"+ReferenceRangeHigh+"'";
-		this.ReferenceRangeLow = "'"+ReferenceRangeLow+"'";
-		insertSQL += ERModel.generateNewSql(labTestsFormat, this.attributes(), labTestsPK);
+		this.LabTestResultID = "'"+ERModel.cQ(LabTestResultID)+"'";
+		this.LabTestType = "'"+ERModel.cQ(LabTestType)+"'";
+		this.ReferenceRangeHigh = "'"+ERModel.cQ(ReferenceRangeHigh)+"'";
+		this.ReferenceRangeLow = "'"+ERModel.cQ(ReferenceRangeLow)+"'";
+		insertSQL.add(ERModel.generateNewSql(labTestsFormat, this.attributes(), labTestsPK));
 	}
     
 	public ArrayList<String> attributes(){

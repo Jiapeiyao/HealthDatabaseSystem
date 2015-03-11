@@ -1,11 +1,6 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -16,19 +11,19 @@ public class Record {
 	public String PatientID;
 	public String AuthorID;
 	public String ParticipatingRole;
-	public String insertSQL;
+	public ArrayList<String> insertSQL;
 	private final String recordFormat = "RECORD(PatientID, AuthorID, ParticipatingRole)";
 	private final String recordPK = " ON DUPLICATE KEY UPDATE  PatientID=PatientID, AuthorID=AuthorID;\n";
 	
 	public Record(){
-		insertSQL="";
+		insertSQL=new ArrayList<String>();
 	}
 
 	public void addRecord(String PatientID, String AuthorID, String ParticipatingRole) {
-		this.PatientID = "'"+PatientID+"'";
-		this.AuthorID = "'"+AuthorID+"'";
-		this.ParticipatingRole = "'"+ParticipatingRole+"'";
-		insertSQL += ERModel.generateNewSql(recordFormat, this.attributes(), recordPK);
+		this.PatientID = "'"+ERModel.cQ(PatientID)+"'";
+		this.AuthorID = "'"+ERModel.cQ(AuthorID)+"'";
+		this.ParticipatingRole = "'"+ERModel.cQ(ParticipatingRole)+"'";
+		insertSQL.add(ERModel.generateNewSql(recordFormat, this.attributes(), recordPK));
 	}
 
 	public ArrayList<String> attributes(){

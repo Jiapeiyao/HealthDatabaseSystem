@@ -1,11 +1,6 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -16,19 +11,19 @@ public class FamilyHistory {
 	public String PatientID;
 	public String RelativeID;
 	public String Relation;
-	public String insertSQL;
+	public ArrayList<String> insertSQL;
 	private final String familyHistoryFormat = "FAMILYHISTORY(PatientID, RelativeID, Relation)";
 	private final String familyHistoryPK = " ON DUPLICATE KEY UPDATE PatientID=PatientID, RelativeID=RelativeID;\n";
 	
 	public FamilyHistory(){
-		insertSQL="";
+		insertSQL=new ArrayList<String>();
 	}
 	
 	public void addFamilyHistory(String PatientID, String RelativeID, String Relation){
-		this.PatientID = "'"+PatientID+"'";
-		this.RelativeID = "'"+RelativeID+"'";
-		this.Relation = "'"+Relation+"'";
-		insertSQL += ERModel.generateNewSql(familyHistoryFormat, this.attributes(), familyHistoryPK);
+		this.PatientID = "'"+ERModel.cQ(PatientID)+"'";
+		this.RelativeID = "'"+ERModel.cQ(RelativeID)+"'";
+		this.Relation = "'"+ERModel.cQ(Relation)+"'";
+		 insertSQL.add(ERModel.generateNewSql(familyHistoryFormat, this.attributes(), familyHistoryPK));
 	}
 //
 //	public String attributes(){

@@ -1,11 +1,7 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
+
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -17,20 +13,20 @@ public class Allergies {
 	public String SubstanceID;
 	public String AllergyStatus;
 	public String Reaction;
-	public String insertSQL;
+	public ArrayList<String> insertSQL;
 	private final String allergiesFormat = "ALLERGIES(PatientID, SubstanceID, AllergyStatus, Reaction)";
 	private final String allergiesPK = " ON DUPLICATE KEY UPDATE PatientID=PatientID, SubstanceID=SubstanceID;\n";
 	
 	public Allergies(){
-		insertSQL = "";
+		insertSQL=new ArrayList<String>();
 	}
 	
 	public void addAllergies(String PatientID, String SubstanceID, String AllergyStatus, String Reaction){
-		this.PatientID = "'"+PatientID+"'";
-		this.SubstanceID = "'"+SubstanceID+"'";
-		this.AllergyStatus = "'"+AllergyStatus+"'";
-		this.Reaction = "'"+Reaction+"'";
-		insertSQL += ERModel.generateNewSql(allergiesFormat, this.attributes(), allergiesPK);
+		this.PatientID = "'"+ERModel.cQ(PatientID)+"'";
+		this.SubstanceID = "'"+ERModel.cQ(SubstanceID)+"'";
+		this.AllergyStatus = "'"+ERModel.cQ(AllergyStatus)+"'";
+		this.Reaction = "'"+ERModel.cQ(Reaction)+"'";
+		insertSQL.add(ERModel.generateNewSql(allergiesFormat, this.attributes(), allergiesPK));
 	}
 	
 	public ArrayList<String> attributes(){

@@ -81,6 +81,7 @@ public class Database {
 	            e.printStackTrace();
 	        }
 	}
+
 	
 	/**
 	 * close connection to the database

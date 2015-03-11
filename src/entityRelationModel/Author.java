@@ -1,11 +1,6 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -17,21 +12,21 @@ public class Author {
 	public String AuthorTitle;
     public String AuthorFirstName;
     public String AuthorLastName;
-    public String insertSQL;
+    public ArrayList<String> insertSQL;
     private final String authorFormat = "AUTHOR(AuthorID, AuthorTitle, AuthorFirstName, AuthorLastName)";
     
 	private final String authorPK = " ON DUPLICATE KEY UPDATE AuthorID=AuthorID;\n";
     
     public Author(){
-    	insertSQL = "";
+    	insertSQL=new ArrayList<String>();
     }
 		
 	public void addAuthor(String AuthorID, String AuthorTitle, String AuthorFirstName, String AuthorLastName) {
-		this.AuthorID = "'"+AuthorID+"'";
-		this.AuthorTitle = "'"+AuthorTitle+"'";
-		this.AuthorFirstName = "'"+AuthorFirstName+"'";
-		this.AuthorLastName = "'"+AuthorLastName+"'";
-		insertSQL += ERModel.generateNewSql(authorFormat, this.attributes(), authorPK);
+		this.AuthorID = "'"+ERModel.cQ(AuthorID)+"'";
+		this.AuthorTitle = "'"+ERModel.cQ(AuthorTitle)+"'";
+		this.AuthorFirstName = "'"+ERModel.cQ(AuthorFirstName)+"'";
+		this.AuthorLastName = "'"+ERModel.cQ(AuthorLastName)+"'";
+		insertSQL.add(ERModel.generateNewSql(authorFormat, this.attributes(), authorPK));
 	}
 	
 	public ArrayList<String> attributes(){

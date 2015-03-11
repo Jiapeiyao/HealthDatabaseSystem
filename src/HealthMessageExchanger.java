@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import entityRelationModel.Allergies;
 import entityRelationModel.Author;
+import entityRelationModel.ERModel;
 import entityRelationModel.Family;
 import entityRelationModel.FamilyHistory;
 import entityRelationModel.Guardians;
@@ -105,8 +106,21 @@ public class HealthMessageExchanger {
 			while (rs.next()){
 				parseOneTupleToTargetDatabase(rs);
 			}
+			//entities
 			executeCommInAnArrayList(guardians.insertSQL);
-			
+			executeCommInAnArrayList(author.insertSQL);
+			executeCommInAnArrayList(insurances.insertSQL);
+			executeCommInAnArrayList(family.insertSQL);
+			executeCommInAnArrayList(substances.insertSQL);
+			executeCommInAnArrayList(labTests.insertSQL);
+			executeCommInAnArrayList(patients.insertSQL);
+			//relations
+			executeCommInAnArrayList(record.insertSQL);
+			executeCommInAnArrayList(familyHistory.insertSQL);
+			executeCommInAnArrayList(allergies.insertSQL);
+			executeCommInAnArrayList(plans.insertSQL);
+			executeCommInAnArrayList(visit.insertSQL);
+			executeCommInAnArrayList(patientRole.insertSQL);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -114,11 +128,11 @@ public class HealthMessageExchanger {
 		}
 	}
 	
-	public void executeCommInAnArrayList(ArrayList<String> CommList)  throws SQLException {
-		for (int i=0; i<guardians.insertSQL.size(); i++)
+	public void executeCommInAnArrayList(ArrayList<String> commList)  throws SQLException {
+		for (int i=0; i<commList.size(); i++)
 			try {
-				Target_DB.executeInsert(guardians.insertSQL.get(i));
-				System.out.print(guardians.insertSQL.get(i));
+				Target_DB.executeInsert(commList.get(i));
+				//System.out.print(commList.get(i));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -151,6 +165,32 @@ public class HealthMessageExchanger {
 		
 	}
 	
+	private void printTable(String Table_Name, int Columns){
+		ResultSet rs = null;
+		String sqlComm = "SELECT * FROM "+Table_Name;
+		try {
+			rs = Target_DB.selectTable(sqlComm);
+			while (rs.next()){
+				for (int i=1; i<=Columns; i++)
+					System.out.print(rs.getString(i)+"\t");
+				System.out.print("\n");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void dropTables(String Table_Name){
+		try {
+			String sqlComm = "DROP TABLE "+Table_Name;
+			Target_DB.executeInsert(sqlComm);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Test for storage of target database
 	 * 
@@ -159,24 +199,28 @@ public class HealthMessageExchanger {
 	 */
 	public static void main(String[] args) throws SQLException {
 		HealthMessageExchanger hme = new HealthMessageExchanger();
-//		ResultSet rs = null;
-//		try {
-//			rs = hme.Target_DB.selectTable("SELECT * FROM GUARDIANS");
-//			while (rs.next()){
-//				for (int i=1; i<=8; i++)
-//					System.out.print(rs.getString(i)+"\t");
-//				System.out.print("\n");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	    try {
-//	    	hme.Target_DB.closeConnection();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		
+//		hme.printTable("GUARDIANS", 8);
+//		hme.printTable("AUTHOR", 4);
+//		hme.printTable("INSURANCES", 5);
+//		hme.printTable("FAMILY", 3);
+//		hme.printTable("SUBSTANCES", 2);
+//		hme.printTable("LABTESTS", 4);
+//		hme.printTable("PATIENTS", 8);
+
+//		hme.printTable("RECORD", 3);
+//		hme.printTable("FAMILYHISTORY", 3);
+//		hme.printTable("ALLERGIES", 4);
+//		hme.printTable("PLANS", 4);
+//		hme.printTable("VISIT", 5);
+//		hme.printTable("PATIENTROLE", 3);		
+		
+	    try {
+	    	hme.Target_DB.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

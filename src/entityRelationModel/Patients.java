@@ -1,11 +1,6 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -22,25 +17,25 @@ public class Patients {
 	public String Birthtime;
 	public String ProviderID;
 	public String InsuranceID;
-	public String insertSQL;
+	public ArrayList<String> insertSQL;
 	private final String patientsFormat = "PATIENTS(PatientID, GivenName, FamilyName, Suffix, Gender, Birthtime, ProviderID, InsuranceID)";
 	private final String patientsPK = " ON DUPLICATE KEY UPDATE PatientID=PatientID;\n";
 	
 	public Patients(){
-		insertSQL="";
+		insertSQL=new ArrayList<String>();
 	}
 	
 	public void addPatients(String PatientID, String GivenName, String FamilyName, String Suffix, 
 			String Gender, String Birthtime, String ProviderID, String InsuranceID) {
-		this.PatientID = "'"+PatientID+"'";
-		this.GivenName = "'"+GivenName+"'";
-		this.FamilyName = "'"+FamilyName+"'";
-		this.Suffix = "'"+Suffix+"'";
-		this.Gender = "'"+Gender+"'";
-		this.Birthtime = "'"+Birthtime+"'";
-		this.ProviderID = "'"+ProviderID+"'";
-		this.InsuranceID = "'"+InsuranceID+"'";
-		insertSQL += ERModel.generateNewSql(patientsFormat, this.attributes(), patientsPK);
+		this.PatientID = "'"+ERModel.cQ(PatientID)+"'";
+		this.GivenName = "'"+ERModel.cQ(GivenName)+"'";
+		this.FamilyName = "'"+ERModel.cQ(FamilyName)+"'";
+		this.Suffix = "'"+ERModel.cQ(Suffix)+"'";
+		this.Gender = "'"+ERModel.cQ(Gender)+"'";
+		this.Birthtime = "'"+ERModel.cQ(Birthtime)+"'";
+		this.ProviderID = "'"+ERModel.cQ(ProviderID)+"'";
+		this.InsuranceID = "'"+ERModel.cQ(InsuranceID)+"'";
+		 insertSQL.add(ERModel.generateNewSql(patientsFormat, this.attributes(), patientsPK));
 	}
 
 	public ArrayList<String> attributes(){

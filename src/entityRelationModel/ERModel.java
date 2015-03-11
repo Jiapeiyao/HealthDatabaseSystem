@@ -13,4 +13,21 @@ public class ERModel {
 			sqlComm+= PK;
 			return sqlComm;
 	}
+	
+	public static String cQ(String str){
+		String retStr = "";
+		if (str == null || str.length()==0)
+			return str;
+		for (int i=0; i<str.length(); i++){
+			if (str.charAt(i)=='\'')
+				retStr += '\\';
+			retStr += str.charAt(i);
+		}
+		return retStr;
+	}
+
+//	void main(){
+//		System.out.println(ERModel.cQ("abc's cd"));
+//		
+//	}
 }

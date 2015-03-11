@@ -1,11 +1,6 @@
 package entityRelationModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 /**
  * @author Jiapei Yao, Xinglun Xu
@@ -23,7 +18,6 @@ public class Guardians {
 	public String Zip;
 	public ArrayList<String> insertSQL;
 	private final String guardiansFormat = "GUARDIANS(GuardianNo, GivenName, FamilyName, Phone, Address, City, State, Zip)";
-	private final String guardians2Format = "GUARDIANS()";
 	private final String guardiansPK = " ON DUPLICATE KEY UPDATE GuardianNo=GuardianNo;\n";
 	
 	public Guardians(){
@@ -33,15 +27,15 @@ public class Guardians {
 
 	
 	public void addGuardians(String GuardianNo, String GivenName, String FamilyName, String Phone, String Address, String City, String State, String Zip) {
-		 this.GuardianNo = "'"+GuardianNo+"'";
-		 this.GivenName = "'"+GivenName+"'";
-		 this.FamilyName = "'"+FamilyName+"'";
-		 this.Phone = "'"+Phone+"'";
-		 this.Address = "'"+Address+"'";
-		 this.City = "'"+City+"'";
-		 this.State = "'"+State+"'";
-		 this.Zip = "'"+Zip+"'";
-		 insertSQL.add(ERModel.generateNewSql(guardians2Format, this.attributes(), guardiansPK));
+		 this.GuardianNo = "'"+ERModel.cQ(GuardianNo)+"'";
+		 this.GivenName = "'"+ERModel.cQ(GivenName)+"'";
+		 this.FamilyName = "'"+ERModel.cQ(FamilyName)+"'";
+		 this.Phone = "'"+ERModel.cQ(Phone)+"'";
+		 this.Address = "'"+ERModel.cQ(Address)+"'";
+		 this.City = "'"+ERModel.cQ(City)+"'";
+		 this.State = "'"+ERModel.cQ(State)+"'";
+		 this.Zip = "'"+ERModel.cQ(Zip)+"'";
+		 insertSQL.add(ERModel.generateNewSql(guardiansFormat, this.attributes(), guardiansPK));
 	}
 
 	public ArrayList<String> attributes(){
