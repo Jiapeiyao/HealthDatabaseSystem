@@ -1,6 +1,13 @@
 package entityRelationModel;
 import java.util.ArrayList;
 
+/**
+ * Common Functions that are used by all the entity and relation classes are put here
+ * 
+ * @author Jiapei Yao, Xinglun XU
+ *
+ */
+
 public class ERModel {
 	
 	public static String generateNewSql(String TABLE_NAME_WITH_ATTRIBUTES, ArrayList<String> valueList, String PK){

@@ -81,6 +81,18 @@ public class Database {
 	            e.printStackTrace();
 	        }
 	}
+	
+	public void executeEdit(String TABLE ,String CHANGE, String CONDITION) throws SQLException {
+		try{
+			System.out.print(TABLE +" "+CHANGE+" "+CONDITION);
+			String sqlComm = "update "+ TABLE +" set " + CHANGE + " where " + CONDITION;
+            PreparedStatement pst = conn.prepareStatement(sqlComm);  
+            pst.executeUpdate();
+	        }catch(SQLException e)
+	        {
+	            e.printStackTrace();
+	        }
+	}
 
 	
 	/**
