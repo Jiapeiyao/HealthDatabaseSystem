@@ -1,4 +1,5 @@
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,15 +18,18 @@ import entityRelationModel.Record;
 import entityRelationModel.Substances;
 import entityRelationModel.Visit;
 
+
 /**
  * @author Jiapei Yao, Xinglun Xu
  *
  */
 public class HealthMessageExchanger {
-	private final String HealthMessageExchangeDBName = "healthmessagesexchange2";
+	private final String HealthMessageExchangeDBName1 = "healthmessagesexchange2";
+	private final String HealthMessageExchangeDBName2 = "healthmessagesexchange4";
 	private final String HealthMessageTargetDBFileName = "HealthMessagesDatabase";
-	private final Database Source_DB;
-	private final Database Target_DB;
+	public final Database Source_DB1;
+	public final Database Source_DB2;
+	public final Database Target_DB;
 	private Allergies allergies;
 	private Author author;
 	private Family family;
@@ -44,8 +48,9 @@ public class HealthMessageExchanger {
 	 * Constructor
 	 */
 	public HealthMessageExchanger() {
-		 Source_DB = new Database(HealthMessageExchangeDBName);
+		 Source_DB1 = new Database(HealthMessageExchangeDBName1);
 		 Target_DB = new Database(HealthMessageTargetDBFileName);
+		 Source_DB2 = new Database(HealthMessageExchangeDBName2);
 		 allergies = new Allergies();
 		 author = new Author();
 		 family = new Family();
@@ -67,16 +72,56 @@ public class HealthMessageExchanger {
 		}
 	}
 	/**
-	 * parse Messages in `message` table to 
+	 * parse Messages in `message` table
 	 * 
 	 * @throws SQLException
 	 */
 	public void parseMessagesToTargetDatabase() throws SQLException {
-		ResultSet rs = null;
+		ResultSet rs1, rs2, rs3 = null;
 		try {
-			rs = Source_DB.selectTable("SELECT * FROM messages");
-			while (rs.next()){
-				parseOneTupleToTargetDatabase(rs);
+//			rs1 = Source_DB1.selectTable("SELECT * FROM messages");
+//			while (rs1.next()){
+//				parseOneTupleToTargetDatabase(rs1);
+//			}
+//			//entities
+//			executeCommInAnArrayList(guardians.insertSQL);
+//			executeCommInAnArrayList(author.insertSQL);
+//			executeCommInAnArrayList(insurances.insertSQL);
+//			executeCommInAnArrayList(family.insertSQL);
+//			executeCommInAnArrayList(substances.insertSQL);
+//			executeCommInAnArrayList(labTests.insertSQL);
+//			executeCommInAnArrayList(patients.insertSQL);
+//			//relations
+//			executeCommInAnArrayList(record.insertSQL);
+//			executeCommInAnArrayList(familyHistory.insertSQL);
+//			executeCommInAnArrayList(allergies.insertSQL);
+//			executeCommInAnArrayList(plans.insertSQL);
+//			executeCommInAnArrayList(visit.insertSQL);
+//			executeCommInAnArrayList(patientRole.insertSQL);
+			
+			rs2 = Source_DB2.selectTable("SELECT * FROM messages");
+			while (rs2.next()){
+				parseOneTuple(rs2);
+			}
+			//entities
+			executeCommInAnArrayList(guardians.insertSQL);
+			executeCommInAnArrayList(author.insertSQL);
+			executeCommInAnArrayList(insurances.insertSQL);
+			executeCommInAnArrayList(family.insertSQL);
+			executeCommInAnArrayList(substances.insertSQL);
+			executeCommInAnArrayList(labTests.insertSQL);
+			executeCommInAnArrayList(patients.insertSQL);
+			//relations
+			executeCommInAnArrayList(record.insertSQL);
+			executeCommInAnArrayList(familyHistory.insertSQL);
+			executeCommInAnArrayList(allergies.insertSQL);
+			executeCommInAnArrayList(plans.insertSQL);
+			executeCommInAnArrayList(visit.insertSQL);
+			executeCommInAnArrayList(patientRole.insertSQL);
+			
+			rs3 = Source_DB2.selectTable("SELECT * FROM messages2");
+			while (rs3.next()){
+				parseOneTuple(rs3);
 			}
 			//entities
 			executeCommInAnArrayList(guardians.insertSQL);
@@ -118,7 +163,7 @@ public class HealthMessageExchanger {
 	 * @param tuple
 	 * @throws SQLException
 	 */
-	private void parseOneTupleToTargetDatabase(ResultSet tuple) throws SQLException{
+	private void parseOneTuple(ResultSet tuple) throws SQLException{
 		allergies.addAllergies(tuple.getString(3), tuple.getString(31), tuple.getString(34), tuple.getString(33));
 		author.addAuthor(tuple.getString(17), tuple.getString(18), tuple.getString(19), tuple.getString(20));
 		family.addFamily(tuple.getString(27), tuple.getString(29), tuple.getString(30));
@@ -153,36 +198,37 @@ public class HealthMessageExchanger {
 		}
 	}
 	
+	
 	/**
 	 * Test for storage of target database
 	 * 
 	 * @param args
 	 * @throws SQLException
 	 */
-	public static void main(String[] args) throws SQLException {
-		HealthMessageExchanger hme = new HealthMessageExchanger();
-		
-//		hme.printTable("GUARDIANS", 8);
-//		hme.printTable("AUTHOR", 4);
-//		hme.printTable("INSURANCES", 5);
-//		hme.printTable("FAMILY", 3);
-//		hme.printTable("SUBSTANCES", 2);
-//		hme.printTable("LABTESTS", 4);
-//		hme.printTable("PATIENTS", 8);
-
-//		hme.printTable("RECORD", 3);
-//		hme.printTable("FAMILYHISTORY", 3);
-//		hme.printTable("ALLERGIES", 4);
-//		hme.printTable("PLANS", 4);
-//		hme.printTable("VISIT", 5);
-//		hme.printTable("PATIENTROLE", 3);		
-		
-	    try {
-	    	hme.Target_DB.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) throws SQLException {
+//		HealthMessageExchanger hme = new HealthMessageExchanger();
+//		
+////		hme.printTable("GUARDIANS", 8);
+////		hme.printTable("AUTHOR", 4);
+////		hme.printTable("INSURANCES", 5);
+////		hme.printTable("FAMILY", 3);
+////		hme.printTable("SUBSTANCES", 2);
+////		hme.printTable("LABTESTS", 4);
+////		hme.printTable("PATIENTS", 8);
+//
+////		hme.printTable("RECORD", 3);
+////		hme.printTable("FAMILYHISTORY", 3);
+////		hme.printTable("ALLERGIES", 4);
+////		hme.printTable("PLANS", 4);
+////		hme.printTable("VISIT", 5);
+////		hme.printTable("PATIENTROLE", 3);	
+//		MainPanel mp = new MainPanel(hme.Target_DB);
+////	    try {
+////	    	hme.Target_DB.closeConnection();
+////		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+//	}
 
 }
